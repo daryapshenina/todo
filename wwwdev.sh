@@ -34,6 +34,7 @@ start() {
 	# done
 
 	fsmonitor -q -d /var/www "+//default.conf" bash -c "nginx -s reload &&  echo 'nginx reload with default.conf'"
+
 }
 
 case "${1}" in

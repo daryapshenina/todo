@@ -62,7 +62,20 @@ RUN apt-get upgrade -qqy php7.2-dev php7.2-mysql
 RUN apt-get upgrade -qqy php7.2-odbc php7.2-pgsql php7.2-xml php7.2-soap
 RUN apt-get upgrade -qqy php7.2-mbstring php7.2-zip php-pear
 
-
+#Включаем отладку в xdebug
+	RUN echo \
+		'xdebug.default_enable=1 \n\
+xdebug.var_display_max_children=-1 \n\
+xdebug.var_display_max_data=-1 \n\
+xdebug.var_display_max_depth=-1 \n\
+xdebug.var_display_max_depth=-1 \n\
+xdebug.remote_connect_back=0 \n\
+xdebug.remote_log=/tmp/xdebug_remote.log \n\
+xdebug.remote_host=172.17.42.1 \n\
+xdebug.remote_port=9000 \n\
+xdebug.idekey=DEBUG \n\
+xdebug.remote_autostart=1 \n\
+xdebug.remote_enable=1' >> /etc/php/7.2/mods-available/20-xdebug.ini
 
 
 
