@@ -135,31 +135,37 @@ RUN cat /tmp/profile >> /etc/profile
 
 RUN  npm install -g fsmonitor
 
+ARG pgversion=9.6
+
+RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+
+#RUN apt-get update && apt-get install -y --allow-unauthenticated \
+# python-software-properties software-properties-common postgresql-9.3 postgresql-client-9.3 postgresql-contrib-9.3
 
 
-RUN add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt-get update
-RUN apt-get install -y postgresql
+# && apt-get upgrade -y
+RUN apt-get install -y postgresql-$pgversion
+RUN apt-get install -y postgresql-contrib-$pgversion
 RUN apt-get install -y sudo \
 				less \
 				nano
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible.
-RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/10/main/pg_hba.conf
+RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/$pgversion/main/pg_hba.conf
 
 # And add ``listen_addresses`` to ``/etc/postgresql/9.3/main/postgresql.conf``
-RUN echo "listen_addresses='*'" >> /etc/postgresql/10/main/postgresql.conf
+RUN echo "listen_addresses='*'" >> /etc/postgresql/$pgversion/main/postgresql.conf
+RUN sed -i "s/timezone = 'UTC'/timezone = 'Europe\/Moscow'/g" /etc/postgresql/$pgversion/main/postgresql.conf
 
 
 ADD wwwdev.sh /usr/bin/wwwdev
 RUN chmod +x /usr/bin/wwwdev
 
-EXPOSE 54321
-
-EXPOSE 27017
+EXPOSE 5432
 VOLUME /var/www
-EXPOSE 80 22 9001
+EXPOSE 80 22 9001 27017
 
 ENTRYPOINT ["wwwdev"]
