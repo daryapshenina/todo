@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+//Route::get('photo', 'UserController@showProfile')->name('profile');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('test', 'PhotoController'
+);
+Route::resource('testauth', 'PhotoController'
+)->middleware('auth');
