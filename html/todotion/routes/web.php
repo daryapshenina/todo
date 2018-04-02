@@ -20,7 +20,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('test', 'PhotoController'
-);
-Route::resource('testauth', 'PhotoController'
-)->middleware('auth');
+
+Route::get('task', 'TaskController@index');
+//Route::controller('task', 'TaskController');
+Route::any('task/{name}', function($name)
+{
+$task=new \App\Http\Controllers\TaskController();
+$task->$name();
+})
+    ->where('name', '[A-Za-z]+');
+
