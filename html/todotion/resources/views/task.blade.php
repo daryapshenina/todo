@@ -6,7 +6,7 @@
         <div class="col-sm-offset-2 col-sm-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    New Task
+                    Добавление задачи
                 </div>
     <!-- Bootstrap шаблон... -->
 
@@ -15,7 +15,7 @@
 
 
     <!-- Форма новой задачи -->
-        <form action="{{ url('task') }}" method="POST" class="form-horizontal">
+        <form action="{{ url('task/newTask') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
         <!-- Имя задачи -->
@@ -48,7 +48,7 @@
     @if (count($tasks) > 0)
         <div class="panel panel-default">
             <div class="panel-heading">
-                Current Tasks
+                Список задач
             </div>
 
             <div class="panel-body">
@@ -64,12 +64,12 @@
 
                             <!-- Task Delete Button -->
                             <td>
-                                <form action="{{ url('task/'.$task->id) }}" method="POST">
+                                <form action="{{ url('task/deleteTask') }}" method="POST">
                                     {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-
+    {{$task->id}}
+                                    <input type="text" name="description" id="task-name" class="form-control">
                                     <button type="submit" class="btn btn-danger">
-                                        <i class="fa fa-btn fa-trash"></i>Delete
+                                        <i class="fa fa-btn fa-trash"></i>Удалить
                                     </button>
                                 </form>
                             </td>

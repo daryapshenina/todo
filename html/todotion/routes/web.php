@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use Illuminate\Http\Request;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -20,13 +20,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/task', 'TaskController@index');
 
-Route::get('task', 'TaskController@index');
-//Route::controller('task', 'TaskController');
-Route::any('task/{name}', function($name)
+Route::any('task/{name}/', function(Request $request, $name)
 {
+
 $task=new \App\Http\Controllers\TaskController();
-$task->$name();
+$task->$name($request);
 })
     ->where('name', '[A-Za-z]+');
+
 
