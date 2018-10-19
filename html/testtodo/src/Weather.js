@@ -95,11 +95,10 @@ class Weather extends Component {
     shouldComponentUpdate(){
         return true;
     }
+    // ToDo Доработать функционирование с reject
     componentDidMount(){
        var geo = this.getGeolocation();
        geo.then((position) => {
-           console.log('then');
-           console.log(position);
         this.setState({latitude: position.latitude,longitude: position.longitude});
         return position;
     })
@@ -121,12 +120,9 @@ class Weather extends Component {
             this.setState({city: data.city,temperature: data.temperature});
         })
     })
-
-       }
-    )
-
+    })
     }
-
+// ToDo Доработать функционирование с reject
     getGeolocation(){
      return new Promise(function (resolve,reject) {
          if (navigator.geolocation) {

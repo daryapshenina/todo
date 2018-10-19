@@ -2,25 +2,24 @@
  * Created by root on 12/07/18.
  */
 import React, { Component } from 'react';
+import { connect } from "react-redux"
 
 class User extends Component {
-    constructor() {
-        super();
-        this.state = {name: 'Иван', surname: 'Иванов'};
+    constructor(props) {
+        super(props);
     }
 
     render() {
-        return (
-            <div>111+{this.state.name}</div>
-        /*<div>
-         <p>имя: {this.props.name}</p>
-         <p>фамилия: {this.props.surname}</p>
-
-         <button onClick={this.props.showMessage}>
-         нажми на меня
-         </button>
-         </div>*/
-    );
+        return <div>
+        <p>Пользователь - {this.props.user}</p>
+        </div>
     }
 }
-export default User;
+
+function mapStateToProps(state) {
+    return {
+        user: state.users.user,
+    }
+}
+
+export default connect(mapStateToProps)(User);

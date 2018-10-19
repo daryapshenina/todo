@@ -1,95 +1,120 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes} from 'react'
 
 import User from './User'
 import Auth from './Auth'
 import List from './List'
 import Weather from './Weather'
+import Year from './Year'
 
-import { Router, Switch, Route, Link} from 'react-router-dom'
+import {Router, Switch, Route, Link} from 'react-router-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
+
+import setYearAction from './actions/actions'
+import setUserAction from './actions/actions'
+
+import { connect } from "react-redux"
 
 const history = createBrowserHistory()
 
-
-
 class App extends Component {
 
-    constructor() {
-        super();
+    hidden(){
 
-        this.state = {
-            name: 'Коля',
-            surname: 'Иванов',
-        };
+        if (this.props.user=='unknown user'){
+            return(
+                <div>
+                <Auth/>
+                </div>
+                )
+        }
+       else{
+            return (
+                <div>
+                <User user={this.props.user}/>
+            <Weather/>
+                </div>
+            )
+        }
     }
 
     render() {
-        //    Почему-то ссылки не работают корректно через Link to
-        //    Путь в браузере меняется, но на компонент не переходит
-        //
         return (
             <div>
-            <div>
-            <ul>
-            <li><a href="/list">1</a></li>
-            <li><a href="/user">2</a></li>
-            <li><Link to="/list">1</Link></li>
-            <li><Link to="/user" >2</Link></li>
-            </ul>
+            {this.hidden()}
             </div>
-            <Router history={history}>
-            <Switch>
-            <Route exact path='/' component={Auth}/>
-            <Route path='/user' component={User}/>
-            <Route path='/list' component={List}/>
-            <Route path='/weather' component={Weather}/>
-            </Switch>
-            </Router>
-                </div>
-
-    )
+    );
     }
 
 
-    showMessage() {
-        console.log('!!!');
-    }
-//В какой же момент отправлять запросы за сервер?
-//     В некоторый источниках, что ajax запрос стоит делать в componentDidMount
-/*   componentWillMount(){
-        console.log('777');
-        fetch('http://127.0.0.1:8081/API/test.php',{
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            }
-        })
-            .then(
-                function(response) {
-                    if (response.status !== 200) {
-                        console.log('Looks like there was a problem. Status Code: ' +
-                            response.status);
-                        return;
-                    }
-console.log(response.status);
-
-                    // Examine the text in the response
-                    response.json().then(function(data) {
-                        console.log(data);
-                    });
-
-                }
-
-            )
-            .catch(function(err) {
-                console.log('Fetch Error :-S', err);
-            });
-
-    }
-
-    componentDidMount(){
-    }
-
-    */
 }
-export default App;
+
+
+
+function mapStateToProps(state) {
+    return {
+        user: state.users.user,
+        year: state.users.year
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+            setYearFunction: year => {
+            dispatch(setYearAction(year))
+}
+}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+/* <ul>
+ <li><a href="/list">list</a></li>
+ <li><a href="/user">user</a></li>
+ </ul>
+ </div>
+ <Router history={history}>
+ <Switch>
+ <Route exact path='/' component={Auth}/>
+ <Route path='/user' component={User}/>
+ <Route path='/list' component={List}/>
+ <Route path='/weather' component={Weather}/>
+ </Switch>
+ <div>
+ <User user={this.props.user}/>
+ <Year year={this.props.year} setYear={this.props.setYearFunction}/>
+ </div>
+
+
+ </Router>
+ </div>
+ class App extends Component {
+ render() {
+ return (
+ <div><h2>React {this.props.user}</h2>
+ <div>
+ <User user={this.props.user}/>
+ <Year year={this.props.year} setYear={this.props.setYearFunction}/>
+ </div>
+ <div>
+ <ul>
+ <li><a href="/list">list</a></li>
+ <li><a href="/user">user</a></li>
+ </ul>
+ </div>
+ <Router history={history}>
+ <Switch>
+ <Route exact path='/' component={Auth}/>
+ <Route path='/user' component={User}/>
+ <Route path='/list' component={List}/>
+ <Route path='/weather' component={Weather}/>
+ </Switch>
+ </Router>
+ </div>
+ );
+ }
+ }
+
+
+
+
+
+ */

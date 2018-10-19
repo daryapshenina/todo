@@ -29,7 +29,7 @@ public function actionIndex(){
     ]);
     $response = $client->get('data/2.5/weather?'.$string)->send();
     $weather =$this->constructWeather($response->data);
-   return json_encode($weather);
+    return json_encode($weather);
 }
 
 public function constructWeather($weather){
