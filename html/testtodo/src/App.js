@@ -8,15 +8,23 @@ import Year from './Year'
 
 import {Router, Switch, Route, Link} from 'react-router-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
-
+import styled from 'styled-components';
 import setYearAction from './actions/actions'
 import setUserAction from './actions/actions'
+import { Button } from 'reactstrap';
 
 import { connect } from "react-redux"
 
 const history = createBrowserHistory()
+/*
+* ToDo разобраться с настройкой css
+*React-bootstrap вроде работает пока только с 3 бутстрапом.
+*
+*
+* */
 
 class App extends Component {
+
 
     hidden(){
 
@@ -25,30 +33,34 @@ class App extends Component {
                 <div>
                 <Auth/>
                 </div>
-                )
-        }
+        )}
        else{
             return (
                 <div>
                 <User user={this.props.user}/>
             <Weather/>
+            <Router history={history}>
+                <Switch>
+                <Route path='/user(:id)' component={User}/>
+                <Route path='/list' component={List}/>
+                <Route path='/weather' component={Weather}/>
+                </Switch>
+                </Router>
                 </div>
             )
         }
     }
-
     render() {
         return (
             <div>
             {this.hidden()}
             </div>
+
     );
     }
 
 
 }
-
-
 
 function mapStateToProps(state) {
     return {
@@ -112,9 +124,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
  );
  }
  }
-
-
-
-
-
  */

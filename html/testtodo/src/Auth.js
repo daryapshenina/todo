@@ -2,10 +2,33 @@
  * Created by root on 13/07/18.
  */
 import React, { Component } from 'react';
-
+import styled from 'styled-components';
 import { connect } from "react-redux"
 import {auth} from './post'
 import setUserAction from './actions/usersActions'
+import { Col,Form, FormGroup, Label,FormText } from 'reactstrap';
+
+//Использование styled-components  пока выглядит как-то странно и подозрительно
+
+const AuthForm = styled.div`
+margin:0 auto;
+`;
+
+
+const Button = styled.button`
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+`;
+
+const Input = styled.input`
+ padding: 0.5em;
+  margin: 0.5em;
+  border-radius: 3px;
+`;
+
+//ToDo попытаться добавить middleware
 class Auth extends Component
 {
 constructor(props){
@@ -18,29 +41,25 @@ constructor(props){
     this.onPasswordChange = this.onPasswordChange.bind(this);
     this.findUsers = this.findUsers.bind(this);
 }
-
 //ToDo Возможно вынести форму в отдельный компонент.
 //ToDo Где-то сделать валидацию данных
+// ToDo сделать посимпатичнее отображение формы
     render() {
         return (
-            <div className='row'>
-            <div className='col-md-12'>
-            <input type="text" name="login"
+            <AuthForm>
+            <div >
+            <Input type="text" name="login"
         placeholder="Имя пользователя"
-        onChange={this.onLoginChange}
-        />
+        onChange={this.onLoginChange}/>
     </div>
-        <div className='col-md-12'>
-            <input type="password"
+        <div >
+            <Input type="password"
         name="password"
         placeholder="Пароль"
         onChange={this.onPasswordChange}/>
     </div>
-        <div className='col-md-12'>
-            <button onClick={this.findUsers}>Войти</button>
-        </div>
-    </div>
-
+            <button type="submit" className = "btn btn-primary" onClick={this.findUsers}>Войти</button>
+            </AuthForm>
     )
     }
 
