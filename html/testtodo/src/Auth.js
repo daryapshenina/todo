@@ -11,9 +11,18 @@ import { Col,Form, FormGroup, Label,FormText } from 'reactstrap';
 //Использование styled-components  пока выглядит как-то странно и подозрительно
 
 const AuthForm = styled.div`
-margin:0 auto;
+width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center; 
+    justify-content: center; 
+    overflow: auto;   
 `;
-
 
 const Button = styled.button`
   font-size: 1em;
