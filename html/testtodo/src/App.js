@@ -5,7 +5,8 @@ import Auth from './Auth'
 import List from './List'
 import Weather from './Weather'
 import Year from './Year'
-
+import Video from './Video'
+import Logout from './Logout'
 import {Router, Switch, Route, Link} from 'react-router-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
 import styled from 'styled-components';
@@ -27,7 +28,6 @@ class App extends Component {
 
 
     hidden(){
-
         if (this.props.user=='unknown user'){
             return(
                 <div>
@@ -37,11 +37,10 @@ class App extends Component {
        else{
             return (
                 <div>
-                <User user={this.props.user}/>
             <Weather/>
-            <Router history={history}>
+                <Router history={history}>
                 <Switch>
-                <Route path='/user(:id)' component={User}/>
+                <Route path='/user' component={User}/>
                 <Route path='/list' component={List}/>
                 <Route path='/weather' component={Weather}/>
                 </Switch>
@@ -51,9 +50,11 @@ class App extends Component {
         }
     }
     render() {
+
         return (
             <div>
             {this.hidden()}
+
             </div>
 
     );
@@ -62,7 +63,7 @@ class App extends Component {
 
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
         user: state.users.user,
         year: state.users.year
