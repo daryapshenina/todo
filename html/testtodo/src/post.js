@@ -7,11 +7,15 @@ const instance = axios.create({
   //  timeout: 1000,
     headers: {'Content-Type': 'application/json'}
 });
-/*
-* ToDo поменять на post запрос, добавить данные для отправки (логин и пароль)
-* */
 
+/*
+* _csrf - для прохождения проверки данных на стороне YII
+*
+ yii::$app->request->csrfParam - получение поля для _csrf(могут быть разные варианты)
+ Yii::$app->request->getCsrfToken() - так можно получить "токен"
+*
+* */
 export const auth = (username, password) =>
 instance
-    .get('/auth/index')
+    .post('/auth/index',{'_csrf':'5m4CQ-noWRO4SYhEVhLQm8hhY1Pbg5Rn2R1iyfkWM321VzZ20YoxRsso_DZ7RrKj8QQ0HLS38UqzfAaDoSBeTg=='})
     .then(({ data }) => data)
