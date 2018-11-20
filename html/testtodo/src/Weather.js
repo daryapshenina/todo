@@ -9,6 +9,9 @@ import React, { Component } from 'react';
 *
 * */
 
+// ToDo пока геолокация не работает, если делать запрос с http://172.30.1.37:3000/
+// ToDo для геолокации нужно использовать HTTPS (пока не добавляла самоподписанный сертификат)
+
 class Weather extends Component {
     constructor() {
         super();
@@ -17,14 +20,13 @@ class Weather extends Component {
             longitude: '',
             temperature:'',
             city:'',
-            basicUrl:'http://127.0.0.1:8081/test/index'
+            basicUrl:'http://localhost:8081/test/index'
         };
         this.getLatitude = this.getLatitude.bind(this);
         this.getLongitude = this.getLongitude.bind(this);
         this.getCity = this.getCity.bind(this);
         this.getTemperature = this.getTemperature.bind(this);
         this.getAttribute = this.getAttribute.bind(this);
-
     }
 
 
@@ -39,7 +41,7 @@ class Weather extends Component {
     )
         ;
     }
-/* Попытаться свести все 4 метода к одному
+/* Возможно попытаться свести все 4 метода к одному
 * */
     getAttribute(name,state){
         console.log('getAttribute')
@@ -97,6 +99,7 @@ class Weather extends Component {
     }
     // ToDo Доработать функционирование с reject
     componentDidMount(){
+
        var geo = this.getGeolocation();
        geo.then((position) => {
         this.setState({latitude: position.latitude,longitude: position.longitude});
@@ -121,6 +124,10 @@ class Weather extends Component {
         })
     })
     })
+    .catch(error => {
+        console.log('55555');
+            console.log(error); // Error: Not Found
+    });
     }
 // ToDo Доработать функционирование с reject
     getGeolocation(){

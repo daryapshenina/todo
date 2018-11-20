@@ -12,9 +12,33 @@ class User extends Component {
     render() {
         return <div>
         <p>Пользователь - {this.props.user}</p>
+        <button onClick = {this.addNewUsers}>Добавить нового пользователя</button>
+        <button onClick = {this.deleteCurrentUser}>Удалить текущего пользователя</button>
         </div>
     }
+    addNewUsers(){
+        <div>
+        <div >
+        <input type="text" name="login"
+        placeholder="Имя пользователя"
+        />
+    </div>
+        <div >
+        <input type="password"
+        name="password"
+        placeholder="Пароль"
+        />
+    </div>
+        <button type="submit" onClick={this.findUsers}>Войти</button>
+        </div>
+
+    }
+    deleteCurrentUser(){
+
+    }
+
 }
+
 
 function mapStateToProps(state) {
     return {

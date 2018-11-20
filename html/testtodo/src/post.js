@@ -15,7 +15,11 @@ const instance = axios.create({
  Yii::$app->request->getCsrfToken() - так можно получить "токен"
 *
 * */
+
+//ToDo все-таки как нибудь поменять на post
+/*Почему-то пост запросы упорно не хотят работать
+* О*/
 export const auth = (username, password) =>
 instance
-    .post('/auth/index',{'_csrf':'5m4CQ-noWRO4SYhEVhLQm8hhY1Pbg5Rn2R1iyfkWM321VzZ20YoxRsso_DZ7RrKj8QQ0HLS38UqzfAaDoSBeTg=='})
+    .get('/auth/index')
     .then(({ data }) => data)

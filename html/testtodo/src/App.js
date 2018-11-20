@@ -1,28 +1,35 @@
+/*
+* Желаемый функционал:
+* 1)Авторизация (пока используются get запросы и нет обращений в бд)
+* 2) замена url
+* 3) получение текущей погоды
+* 4) отображение текущего пользователя
+* 5) Выход из авторизированного состояния
+* 6) отображение фоток для разбора решений redux с асинхронными действиями - возможно в асинхронные действия перетащить часть погодного компонента
+* 7) что-то типа горизонтального меню
+* 8) если получится, то сделать загрузку файлов ( почему-то в реакте не работает, а просто html+js работает, страннота)
+* 9) Добавление пользователя
+* */
+
 import React, { Component, PropTypes} from 'react'
 
 import User from './User'
 import Auth from './Auth'
 import List from './List'
 import Weather from './Weather'
-import Year from './Year'
-import Video from './Video'
-import Logout from './Logout'
+import Page from  './Page'
+import Menu from './components/Menu'
 import {Router, Switch, Route, Link} from 'react-router-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
-import styled from 'styled-components';
 import setYearAction from './actions/actions'
 import setUserAction from './actions/actions'
+import { getPhotos } from './actions/PageActions'
+
 import { Button } from 'reactstrap';
 
 import { connect } from "react-redux"
 
 const history = createBrowserHistory()
-/*
-* ToDo разобраться с настройкой css
-*React-bootstrap вроде работает пока только с 3 бутстрапом.
-*
-*
-* */
 
 class App extends Component {
 
@@ -37,7 +44,9 @@ class App extends Component {
        else{
             return (
                 <div>
-            <Weather/>
+                <Menu/>
+                <Weather/>
+
                 <Router history={history}>
                 <Switch>
                 <Route path='/user' component={User}/>
@@ -54,7 +63,6 @@ class App extends Component {
         return (
             <div>
             {this.hidden()}
-
             </div>
 
     );

@@ -8,7 +8,9 @@ import {auth} from './post'
 import setUserAction from './actions/usersActions'
 import { Col,Form, FormGroup, Label,FormText } from 'reactstrap';
 
+
 //Использование styled-components  пока выглядит как-то странно и подозрительно
+// styled-components в таком виде не вызывают восторга.
 
 const AuthForm = styled.div`
 width: 100%;
@@ -23,12 +25,20 @@ width: 100%;
     justify-content: center; 
     overflow: auto;   
 `;
-
+/*
+Кнопка странного вида с ракетой
+ */
 const Button = styled.button`
   font-size: 1em;
   margin: 1em;
   padding: 0.25em 1em;
   border-radius: 3px;
+  ::before {
+    content: '🚀';
+  }
+  :hover {
+    color: green;
+  }
 `;
 
 const Input = styled.input`
@@ -67,7 +77,7 @@ constructor(props){
         placeholder="Пароль"
         onChange={this.onPasswordChange}/>
     </div>
-            <button type="submit" className = "btn btn-primary" onClick={this.findUsers}>Войти</button>
+            <Button type="submit" className = "btn btn-primary" onClick={this.findUsers}>Войти</Button>
             </AuthForm>
     )
     }
@@ -91,9 +101,10 @@ Origin Request Blocked: The Same Origin Policy disallows reading the remote reso
     const { login, password } = this.state
 try {
    const {name, surname} = await auth(login, password)
-    this.props.setUser(name,surname)
-    console.log(this.props.user)
+ this.props.setUser(name,surname)
+  console.log(this.props.user)
 } catch (e) {
+    console.log('bug')
     console.log(e)
 }
 }
