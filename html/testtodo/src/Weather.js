@@ -20,7 +20,7 @@ class Weather extends Component {
             longitude: '',
             temperature:'',
             city:'',
-            basicUrl:'http://localhost:8081/test/index'
+            basicUrl:"http://"+window.location.hostname+":8081/test/index"
         };
         this.getLatitude = this.getLatitude.bind(this);
         this.getLongitude = this.getLongitude.bind(this);
@@ -57,6 +57,7 @@ class Weather extends Component {
     }
 
     getLatitude(){
+        console.log(this.state.basicUrl);
         if(this.state.latitude===""){
         }
         else{

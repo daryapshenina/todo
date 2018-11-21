@@ -2,12 +2,13 @@
  * Created by root on 18/10/18.
  */
 import axios from 'axios'
+var url = "http://"+window.location.hostname+":8081";
+console.log(url);
 const instance = axios.create({
-    baseURL: 'http://127.0.0.1:8081/',
+    baseURL: url,
   //  timeout: 1000,
     headers: {'Content-Type': 'application/json'}
 });
-
 /*
 * _csrf - для прохождения проверки данных на стороне YII
 *

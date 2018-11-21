@@ -10,29 +10,29 @@
 * 8) если получится, то сделать загрузку файлов ( почему-то в реакте не работает, а просто html+js работает, страннота)
 * 9) Добавление пользователя
 * */
-
+/*
+ http://bogdanov-blog.ru/react-router-v4-notes/ - ссылка, по которой делала роутинг, по другим почему-то не заработало
+*/
 import React, { Component, PropTypes} from 'react'
+import {BrowserRouter as Router, Route,Switch} from 'react-router-dom';
 
 import User from './User'
 import Auth from './Auth'
 import List from './List'
 import Weather from './Weather'
-import Page from  './Page'
 import Menu from './components/Menu'
-import {Router, Switch, Route, Link} from 'react-router-dom'
-import createBrowserHistory from 'history/createBrowserHistory'
+
 import setYearAction from './actions/actions'
 import setUserAction from './actions/actions'
-import { getPhotos } from './actions/PageActions'
+//import { getPhotos } from './actions/PageActions'
 
 import { Button } from 'reactstrap';
 
 import { connect } from "react-redux"
 
-const history = createBrowserHistory()
+const Home = () => <h1>Home</h1>;
 
 class App extends Component {
-
 
     hidden(){
         if (this.props.user=='unknown user'){
@@ -44,15 +44,14 @@ class App extends Component {
        else{
             return (
                 <div>
+                <Router>
+                <div>
                 <Menu/>
-                <Weather/>
-
-                <Router history={history}>
-                <Switch>
+                <Route exact path='/' component={Home}/>
                 <Route path='/user' component={User}/>
                 <Route path='/list' component={List}/>
                 <Route path='/weather' component={Weather}/>
-                </Switch>
+                </div>
                 </Router>
                 </div>
             )
@@ -87,50 +86,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-/* <ul>
- <li><a href="/list">list</a></li>
- <li><a href="/user">user</a></li>
- </ul>
- </div>
- <Router history={history}>
- <Switch>
- <Route exact path='/' component={Auth}/>
- <Route path='/user' component={User}/>
- <Route path='/list' component={List}/>
- <Route path='/weather' component={Weather}/>
- </Switch>
- <div>
- <User user={this.props.user}/>
- <Year year={this.props.year} setYear={this.props.setYearFunction}/>
- </div>
-
-
- </Router>
- </div>
- class App extends Component {
- render() {
- return (
- <div><h2>React {this.props.user}</h2>
- <div>
- <User user={this.props.user}/>
- <Year year={this.props.year} setYear={this.props.setYearFunction}/>
- </div>
- <div>
- <ul>
- <li><a href="/list">list</a></li>
- <li><a href="/user">user</a></li>
- </ul>
- </div>
- <Router history={history}>
- <Switch>
- <Route exact path='/' component={Auth}/>
- <Route path='/user' component={User}/>
- <Route path='/list' component={List}/>
- <Route path='/weather' component={Weather}/>
- </Switch>
- </Router>
- </div>
- );
- }
- }
- */

@@ -9,13 +9,22 @@ import styled from 'styled-components';
 import {Link, NavLink} from 'react-router-dom'
 
 
+/*
+* Пока сделан только простой роутинг
+*
+* */
+const isActiveFunc = (match, location) => {
+    return match;
+};
 
 class Menu extends Component {
     render() {
         return (
             <nav>
-            <NavLink to="/">Главная</NavLink>
-            <NavLink to="/user">Пользователи</NavLink>
+            <NavLink exact activeClassName='active' to='/'>Главная</NavLink>
+            <NavLink isActive={isActiveFunc} activeClassName='active' to='/user'>Пользователи</NavLink>
+            <NavLink isActive={isActiveFunc} activeClassName='active' to='/weather'>Погода</NavLink>
+            <NavLink isActive={isActiveFunc} activeClassName='active' to='/list'>Лист</NavLink>
             </nav>
     )
     }

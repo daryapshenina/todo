@@ -9,13 +9,11 @@ import thunk from 'redux-thunk'
 import thunkMiddleware from 'redux-thunk'
 import app from './reducers/reducers'
 //import '../../public/style.css'
-// import Timer from './Timer';
-// import List from './List';
 
- // ReactDOM.render(<Timer />, document.getElementById('timer'));
-/*ReactDOM.render(<List />, document.getElementById('list'));*/
+
 const store = createStore(app,applyMiddleware(thunk))
 
-ReactDOM.render(<Provider store={store}><BrowserRouter>
-<App />
-</BrowserRouter></Provider>, document.getElementById('root'));
+ ReactDOM.render(
+ <Provider store={store}><App /></Provider>,
+ document.getElementById('root')
+ );
