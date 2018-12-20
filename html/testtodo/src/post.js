@@ -7,7 +7,7 @@ console.log(url);
 const instance = axios.create({
     baseURL: url,
   //  timeout: 1000,
-    headers: {'Content-Type': 'application/json'}
+    headers: {'Content-Type': 'multipart/form-data'}
 });
 /*
 * _csrf - для прохождения проверки данных на стороне YII
@@ -17,10 +17,10 @@ const instance = axios.create({
 *
 * */
 
-//ToDo все-таки как нибудь поменять на post
-/*Почему-то пост запросы упорно не хотят работать
-* О*/
 export const auth = (username, password) =>
 instance
-    .get('/auth/index')
+    .post('/auth/index',{
+        username: username,
+        password: password
+    })
     .then(({ data }) => data)
